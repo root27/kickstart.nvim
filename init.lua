@@ -20,6 +20,11 @@
 =====================================================================
 =====================================================================
 
+
+
+
+
+
 What is Kickstart?
 
   Kickstart.nvim is *not* a distribution.
@@ -97,10 +102,10 @@ vim.g.have_nerd_font = false
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
-
+--
 -- Make line numbers default
 vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
+-- -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
 
@@ -236,6 +241,15 @@ require('lazy').setup({
   --
   --  This is equivalent to:
   --    require('Comment').setup({})
+
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+      -- add any options here
+    },
+    lazy = false,
+  },
+
   { 'wakatime/vim-wakatime', lazy = false },
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
