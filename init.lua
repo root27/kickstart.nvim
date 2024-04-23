@@ -126,7 +126,7 @@ vim.opt.breakindent = true
 -- Save undo history
 vim.opt.undofile = true
 
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+-- Case-insensitive searching UNLESS \C or one or more capital letters in the search --[[ term ]]
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
@@ -167,6 +167,7 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
+
 vim.keymap.set('n', '<leader>d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', '<leader>s', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
