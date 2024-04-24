@@ -243,6 +243,8 @@ require('lazy').setup({
   --  This is equivalent to:
   --    require('Comment').setup({})
 
+  { 'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },
+
   {
     'numToStr/Comment.nvim',
     opts = {
