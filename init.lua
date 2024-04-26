@@ -243,6 +243,13 @@ require('lazy').setup({
   --  This is equivalent to:
   --    require('Comment').setup({})
 
+  {
+    'smjonas/inc-rename.nvim',
+    config = function()
+      require('inc_rename').setup()
+    end,
+  },
+
   { 'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },
 
   {
