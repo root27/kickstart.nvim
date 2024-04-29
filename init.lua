@@ -243,6 +243,11 @@ require('lazy').setup({
   --  This is equivalent to:
   --    require('Comment').setup({})
 
+  {
+    'mbbill/undotree',
+    lazy = false,
+  },
+
   { 'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },
 
   {
