@@ -244,10 +244,8 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   {
-    'smjonas/inc-rename.nvim',
-    config = function()
-      require('inc_rename').setup()
-    end,
+    'mbbill/undotree',
+    lazy = false,
   },
 
   { 'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },
