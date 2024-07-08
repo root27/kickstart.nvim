@@ -92,6 +92,9 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- keymap for tree file system
+vim.keymap.set('n', '<leader>fs', vim.cmd.Neotree)
+
 --Undo Tree KeyMap
 
 vim.keymap.set('n', '<leader>t', vim.cmd.UndotreeToggle)
