@@ -95,6 +95,11 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- keymap for tree file system
 vim.keymap.set('n', '<leader>fs', vim.cmd.Neotree)
 
+-- keymap for terminal
+vim.keymap.set('n', '<leader>b', function()
+  vim.cmd [[ToggleTerm direction=float]]
+end)
+
 --Undo Tree KeyMap
 
 vim.keymap.set('n', '<leader>t', vim.cmd.UndotreeToggle)
@@ -174,7 +179,8 @@ require('lazy').setup({
   --
   -- Use `opts = {}` to force a plugin to be loaded.
   --
-  --
+  -- Terminal plugin
+  { 'akinsho/toggleterm.nvim', version = '*', config = true },
   --
   --
   -- Tree File system
