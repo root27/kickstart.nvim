@@ -17,6 +17,9 @@ P.S. You can delete this when you're done too. It's your config now! :)
 
 --[[ Templ File parse --]]
 
+--[[harpoon setup --]]
+--
+--
 vim.filetype.add {
   extension = {
     templ = 'templ',
@@ -185,6 +188,44 @@ require('lazy').setup({
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
   --
+  --
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local harpoon = require 'harpoon'
+      harpoon:setup()
+
+      vim.keymap.set('n', '<leader>a', function()
+        harpoon:list():add()
+      end)
+      vim.keymap.set('n', '<leader>h', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end)
+
+      vim.keymap.set('n', '<C-h>', function()
+        harpoon:list():select(1)
+      end)
+      vim.keymap.set('n', '<C-t>', function()
+        harpoon:list():select(2)
+      end)
+      vim.keymap.set('n', '<C-n>', function()
+        harpoon:list():select(3)
+      end)
+      vim.keymap.set('n', '<C-s>', function()
+        harpoon:list():select(4)
+      end)
+
+      -- Toggle previous & next buffers stored within Harpoon list
+      vim.keymap.set('n', '<C-s-a>', function()
+        harpoon:list():prev()
+      end)
+      vim.keymap.set('n', '<C-s-d>', function()
+        harpoon:list():next()
+      end)
+    end,
+  },
   -- Use `opts = {}` to force a plugin to be loaded.
   --
   -- Terminal plugin
