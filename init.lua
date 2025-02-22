@@ -20,6 +20,10 @@ P.S. You can delete this when you're done too. It's your config now! :)
 --[[harpoon setup --]]
 --
 --
+--
+--
+--
+--
 vim.filetype.add {
   extension = {
     templ = 'templ',
@@ -177,8 +181,6 @@ vim.opt.rtp:prepend(lazypath)
 --
 --  To update plugins you can run
 --    :Lazy update
---
---
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
@@ -189,6 +191,25 @@ require('lazy').setup({
   -- keys can be used to configure plugin behavior/loading/etc.
   --
   --
+  --
+  --
+  --
+  {
+    'simrat39/rust-tools.nvim',
+    dependencies = { 'neovim/nvim-lspconfig' },
+    config = function()
+      require('rust-tools').setup {
+        server = {
+          settings = {
+            ['rust-analyzer'] = {
+              checkOnSave = { command = 'clippy' },
+              inlayHints = { enable = true },
+            },
+          },
+        },
+      }
+    end,
+  },
   {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
@@ -561,6 +582,16 @@ require('lazy').setup({
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client and client.name == 'rust_analyzer' then
+            -- Check if `inlay_hint.enable` function exists (Neovim 0.10+)
+            if vim.lsp.inlay_hint and vim.lsp.inlay_hint.enable then
+              vim.lsp.inlay_hint.enable(event.buf, true)
+            else
+              -- Fallback for older Neovim versions using rust-tools.nvim
+              require('rust-tools').inlay_hints.enable()
+            end
+          end
           -- NOTE: Remember that Lua is a real programming language, and as such it is possible
           -- to define small helper and utility functions so you don't have to repeat yourself.
           --
@@ -651,7 +682,7 @@ require('lazy').setup({
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
-        -- rust_analyzer = {},
+        --rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -660,7 +691,21 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
+        rust_analyzer = {
 
+          settings = {
+            ['rust-analyzer'] = {
+              checkOnSave = {
+                command = 'clippy',
+              },
+              inlayHints = {
+                typeHints = { enable = true },
+                parameterHints = { enable = true },
+                chainingHints = { enable = true },
+              },
+            },
+          },
+        },
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -690,6 +735,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'rust_analyzer',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
